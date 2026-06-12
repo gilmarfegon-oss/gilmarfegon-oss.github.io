@@ -72,6 +72,27 @@ opnieuw om vraagt.
 
 ## Wijzigingslogboek
 
+### 2026-06-12 (avond) — Inbox Triage: concept-antwoord bij urgente mail
+Workflow **Inbox Triage (Outlook)** (`TkEuAWpSh92qTees`), urgente tak uitgebreid.
+- **Gedrag:** bij categorie `Urgent` schrijft Claude nu een concept-antwoord dat als
+  **Outlook-concept (draft) in de Drafts-map** wordt klaargezet. De concepttekst
+  komt ook in de Telegram-alert te staan.
+- **HARDE GARANTIE:** er staat **geen enkele verzend-node** in de keten. De reply
+  gebruikt `message → reply` met optie `saveAsDraft: true`, dus er wordt nooit
+  automatisch iets verstuurd. Gilmar beslist altijd zelf of/wanneer het eruit gaat.
+- **Nieuwe nodes:** `Haal Urgente Mail` (message get, volledige body),
+  `Schrijf Concept` (langchain agent) + `Claude Concept` (lmChatAnthropic,
+  Claude Sonnet 4.6, temp 0.3, Anthropic-cred `qEKvcM2lIgC6MSqY`),
+  `Maak Concept Antwoord` (message reply, saveAsDraft). De drie nieuwe
+  bewerkingsnodes staan op `onError: continueRegularOutput`, zodat de
+  urgent-alert altijd blijft afgaan, ook als concept-generatie hapert.
+- **Keten urgent:** Routeer(Urgent) -> Haal Urgente Mail -> Schrijf Concept ->
+  Maak Concept Antwoord -> Alert Urgent (incl. concepttekst).
+- Het concept-prompt verzint geen feiten/prijzen/data: onbekende zaken worden
+  `[placeholder]` zodat Gilmar ze makkelijk aanvult. Ondertekening: Gilmar Korts,
+  Fegon Waterbehandeling.
+- Gepubliceerd: activeVersionId `49c3db74-17c8-4035-b20e-928a25c8bb38`.
+
 ### 2026-06-12 (avond) — Autonomie niveau 1+2 + tool "Outlook Mail Ophalen"
 - **Toegevoegd:** sectie `AUTONOMIE & GRENZEN` in de system prompt: laag-risico
   acties (taken, reminders, notities, mail sorteren) doet de assistent nu zelf
