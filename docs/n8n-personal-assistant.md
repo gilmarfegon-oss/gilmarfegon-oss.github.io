@@ -55,7 +55,40 @@ kunnen voortbouwen zonder de context kwijt te raken.
   reminders/wekker/bellen via Telegram, notities (databank + OneDrive),
   afbeeldingen-databank, spraaktranscriptie.
 
+## Autonomie — huidige stand
+
+Niveau 1 (reactief autonoom) + niveau 2 (proactief meedenken) staan AAN.
+Niveau 3 ("maximaal autonoom", o.a. mail versturen zonder concept-check) is
+door Gilmar **expliciet afgewezen** — nooit aanzetten zonder dat hij er
+opnieuw om vraagt.
+
+- **Zelf doen, melden achteraf:** taken aanmaken/bijwerken, reminders,
+  notities/afbeeldingen opslaan, mail labelen/sorteren/verplaatsen, opzoeken.
+- **Eigen-tijd-afspraken** (tijdblok, wekker) direct inplannen bij duidelijke bedoeling.
+- **Harde grens, altijd eerst bevestigen:** e-mail versturen (concept eerst),
+  afspraken met andere mensen (of met uitnodigingen), en alles wat verwijderen is.
+  Wel maximaal voorbereiden zodat Gilmar alleen "ja" hoeft te zeggen.
+- Bij twijfel: behandelen als "buiten de grens" en eerst vragen.
+
 ## Wijzigingslogboek
+
+### 2026-06-12 (avond) — Autonomie niveau 1+2 + tool "Outlook Mail Ophalen"
+- **Toegevoegd:** sectie `AUTONOMIE & GRENZEN` in de system prompt: laag-risico
+  acties (taken, reminders, notities, mail sorteren) doet de assistent nu zelf
+  met melding achteraf; e-mail versturen, afspraken met anderen en verwijderen
+  blijven achter een verplichte bevestiging. Niveau 3 expliciet afgewezen.
+- **Aangepast:** `TAKEN`-sectie — acties/verplichtingen worden direct als taak
+  aangemaakt i.p.v. voorgesteld; `VERBANDEN` — stelt bij krappe deadlines
+  concreet een tijdslot voor.
+- **Nieuwe tool-node:** `Outlook Mail Ophalen` (`microsoftOutlookTool` v2,
+  resource `message`, operation `get`, output `fields` incl. `body`).
+  Haalt één mail volledig op via message-id, inclusief complete HTML-body met
+  links — lost het probleem op dat zoekresultaten alleen een afgekapte
+  `bodyPreview` geven. Credential: `Microsoft Outlook account`
+  (`c1kbC5Q7s4eQJhRW`), gekoppeld aan `AI Assistent` via `ai_tool`.
+  De prompt-sectie `WERK MAIL` beschrijft wanneer de tool gebruikt wordt en
+  dat links als kale URL teruggegeven worden.
+- Gepubliceerd: activeVersionId `f82f614d-f718-40ce-ab4c-1f3090f8d2c1`.
 
 ### 2026-06-12 — Persoonlijkheid + verbanden toegevoegd
 - **Toegevoegd:** sectie `PERSOONLIJKHEID & TOON` (pittig & eigenwijs, sparringpartner,
