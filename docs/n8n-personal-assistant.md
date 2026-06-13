@@ -92,6 +92,18 @@ opnieuw om vraagt.
   Weekreview, Reminder-subworkflow, Foutmeldings-waakhond). Nog niet aangepast;
   fixen zodra daar opmaak-tekens in een bericht opduiken.
 
+### 2026-06-13 (nacht) — Plain-text-fix uitgerold naar alle Telegram-nodes
+Preventief dezelfde `parse_mode = ={{ "" }}` (platte tekst) gezet op de
+overige Telegram-verzendnodes, zodat opmaaktekens (`_`, `*`) of links nooit
+meer een `can't parse entities`-fout geven:
+- `Stuur Briefing` — Ochtendbriefing (`bd6ecffa-366d-4362-b349-f68219789384`)
+- `Stuur Weekreview` — Weekreview (`300b927c-3705-4621-94e7-dcab5ba91474`)
+- `Stuur Reminder` — Reminder-subworkflow (`9174426f-bf70-455a-8cc8-04dbc4982bdb`)
+- `Meld Fout` — Foutmeldings-waakhond (`755ddccb-b230-4535-927f-56fc4725eae2`)
+Daarmee staan ALLE Telegram-sendMessage-nodes in de omgeving nu op platte tekst.
+**Conventie voortaan:** nieuwe Telegram-verzendnodes die dynamische/AI-tekst
+sturen krijgen standaard `additionalFields.parse_mode = ={{ "" }}`.
+
 ### 2026-06-12 (avond) — Inbox Triage: concept-antwoord bij urgente mail
 Workflow **Inbox Triage (Outlook)** (`TkEuAWpSh92qTees`), urgente tak uitgebreid.
 - **Gedrag:** bij categorie `Urgent` schrijft Claude nu een concept-antwoord dat als
