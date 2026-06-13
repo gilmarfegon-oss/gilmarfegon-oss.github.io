@@ -72,6 +72,26 @@ opnieuw om vraagt.
 
 ## Wijzigingslogboek
 
+### 2026-06-13 (nacht) — Bugfix: Telegram "can't parse entities"
+- **Symptoom:** node `Stuur antwoord` (Personal Assistant) gaf `400 Bad Request:
+  can't parse entities` toen het antwoord een lange link met een underscore bevatte
+  (een SendGrid-trackinglink uit een opgehaalde mail). De nieuwe tool
+  `Outlook Mail Ophalen` werkte zelf prima — de assistent had de link correct
+  gevonden; alleen het versturen knapte af.
+- **Oorzaak:** de Telegram-node verstuurt standaard met opmaak (parse_mode);
+  een losse `_` in de URL wordt als (niet-afgesloten) Markdown-cursief gezien.
+- **Fix:** `additionalFields.parse_mode` op `={{ "" }}` gezet (= geen opmaak,
+  platte tekst) bij de nodes die dynamische/AI-tekst versturen:
+  `Stuur antwoord` (Personal Assistant), en `Alert Urgent` + `Meld Factuur`
+  (Inbox Triage). Een kale lege string werd door de validator afgekeurd;
+  een lege expressie is wel geldig en betekent voor Telegram "geen opmaak".
+- Gepubliceerd: Personal Assistant `1a9390ef-df69-4b24-be6c-90aaa21529db`,
+  Inbox Triage `86e66bed-ab1b-40be-a33e-0a473461de02`.
+- **Let op (nog open):** dezelfde latente bug kan spelen bij andere
+  Telegram-verzendnodes die Claude-samenvattingen sturen (Ochtendbriefing,
+  Weekreview, Reminder-subworkflow, Foutmeldings-waakhond). Nog niet aangepast;
+  fixen zodra daar opmaak-tekens in een bericht opduiken.
+
 ### 2026-06-12 (avond) — Inbox Triage: concept-antwoord bij urgente mail
 Workflow **Inbox Triage (Outlook)** (`TkEuAWpSh92qTees`), urgente tak uitgebreid.
 - **Gedrag:** bij categorie `Urgent` schrijft Claude nu een concept-antwoord dat als
