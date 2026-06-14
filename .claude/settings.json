@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__n8n",
+      "mcp__n8n__update_workflow",
+      "mcp__n8n__publish_workflow",
+      "mcp__n8n__get_workflow_details",
+      "mcp__n8n__list_credentials"
+    ]
+  }
+}
